@@ -1,0 +1,21 @@
+{
+  "name": "matching",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "delaemon <takeshi.music.5@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/delaemon/matching",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
