@@ -1,0 +1,1 @@
+CREATE TABLE question (id SERIAL, data JSON) DEFAULT CHARSET=utf8mb4;
