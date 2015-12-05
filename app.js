@@ -2,7 +2,7 @@ var app   = require("koa")();
 var route = require("koa-route")
 var serve = require("koa-static")
 var views = require("koa-views")
-var mysql = require("mysql")
+var mysql = require("mysql-co")
 
 app.use(views(__dirname + '/views', {
     map: {
@@ -19,15 +19,24 @@ config.db = {
     database: process.env.DB_NAME || "matching"
 }
 
+GLOBAL.connectionPool = mysql.createPool(config.db);
+
+app.use(function* mysqlConnection(next) {
+    this.db = GLOBAL.db = yield GLOBAL.connectionPool.getConnection();
+    yield this.db.query(`SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES,NO_ZERO_DATE'`);
+
+    yield next;
+
+    this.db.release();
+});
+
 app.use(
     route.get('/', function *index(){
-        var pool = mysql.createPool(config.db)
-        pool.query('SELECT * FROM question WHERE id = 1',  function(err, rows, fields){
-            if (err) throw err
-            data = rows
-        })
+        const sql = 'SELECT * FROM question WHERE id = ?'
+        const res = yield this.db.query(sql, 1)
+        const data = JSON.parse(res[0][0].data)
         yield this.render('index.ect', {
-            question: data,
+            question: data.question,
             title: 'Matching',
             copyright: {
                 url: 'http://takeshionodera.net',
