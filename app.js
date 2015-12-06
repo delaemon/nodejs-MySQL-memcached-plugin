@@ -35,6 +35,10 @@ app.use(
         const sql = 'SELECT * FROM question WHERE id = ?'
         const res = yield this.db.query(sql, 1)
         const data = JSON.parse(res[0][0].data)
+        //var wait = new Date().getTime() + 5 * 1000
+        //while (new Date().getTime() <= wait) {
+        //    // waiting
+        //}
         yield this.render('index.ect', {
             question: data.question,
             title: 'Matching',
@@ -50,4 +54,5 @@ app.use(
     serve(__dirname + '/public')
 )
 
+console.log("listen")
 app.listen(3000)
