@@ -35,10 +35,13 @@ app.use(
         const sql = 'SELECT * FROM question WHERE id = ?'
         const res = yield this.db.query(sql, 1)
         const data = JSON.parse(res[0][0].data)
+        console.log("work pid: " + process.pid)
+        //bad
         //var wait = new Date().getTime() + 5 * 1000
         //while (new Date().getTime() <= wait) {
-        //    // waiting
+        //    // wait
         //}
+        console.log("work pid: " + process.pid)
         yield this.render('index.ect', {
             question: data.question,
             title: 'Matching',
@@ -54,5 +57,5 @@ app.use(
     serve(__dirname + '/public')
 )
 
-console.log("listen")
+console.log("start app. pid: " + process.pid)
 app.listen(3000)
