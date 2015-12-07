@@ -3,6 +3,7 @@ var route = require("koa-route")
 var serve = require("koa-static")
 var views = require("koa-views")
 var mysql = require("mysql-co")
+var env = process.env
 
 app.use(views(__dirname + '/views', {
     map: {
@@ -12,11 +13,11 @@ app.use(views(__dirname + '/views', {
 
 var config = {}
 config.db = {
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || "3306",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASS || "",
-    database: process.env.DB_NAME || "matching"
+    host: env.MYSQL_HOST || "localhost",
+    port: env.MYSQL_PORT || "3306",
+    user: env.MYSQL_USER || "test",
+    password: env.MYSQL_PASS || "",
+    database: env.MYSQL_DATABASE || "matching"
 }
 
 GLOBAL.connectionPool = mysql.createPool(config.db);
@@ -57,5 +58,7 @@ app.use(
     serve(__dirname + '/public')
 )
 
-console.log("start app. pid: " + process.pid)
-app.listen(3000)
+console.log("Starting Server. Pid", process.pid)
+console.log("Listening to Port", env.PORT);
+console.log("Listening to Address", env.BIND);
+app.listen(env.PORT)

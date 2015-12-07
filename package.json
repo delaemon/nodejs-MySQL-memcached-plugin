@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ect": "^0.5.9",
+    "foreman": "1.4.1",
     "koa": "^1.1.2",
     "koa-route": "^2.4.2",
     "koa-static": "^1.5.2",
