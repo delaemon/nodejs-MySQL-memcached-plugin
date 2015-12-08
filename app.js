@@ -15,7 +15,7 @@ var config = {}
 config.db = {
     host: env.MYSQL_HOST || "localhost",
     port: env.MYSQL_PORT || "3306",
-    user: env.MYSQL_USER || "test",
+    user: env.MYSQL_USER || "root",
     password: env.MYSQL_PASS || "",
     database: env.MYSQL_DATABASE || "matching"
 }
@@ -31,18 +31,18 @@ app.use(function* mysqlConnection(next) {
     this.db.release();
 });
 
+function wait(ms) {
+  return function(done) {
+    setTimeout(done, ms)
+  }
+}
+
 app.use(
     route.get('/', function *index(){
         const sql = 'SELECT * FROM question WHERE id = ?'
         const res = yield this.db.query(sql, 1)
         const data = JSON.parse(res[0][0].data)
-        console.log("work pid: " + process.pid)
-        //bad
-        //var wait = new Date().getTime() + 5 * 1000
-        //while (new Date().getTime() <= wait) {
-        //    // wait
-        //}
-        console.log("work pid: " + process.pid)
+        //yield wait(3000)
         yield this.render('index.ect', {
             question: data.question,
             title: 'Matching',
@@ -61,4 +61,4 @@ app.use(
 console.log("Starting Server. Pid", process.pid)
 console.log("Listening to Port", env.PORT);
 console.log("Listening to Address", env.BIND);
-app.listen(env.PORT)
+app.listen(env.PORT||3000)
