@@ -1,9 +1,9 @@
-var app   = require("koa")();
-var route = require("koa-route")
-var serve = require("koa-static")
-var views = require("koa-views")
-var mysql = require("mysql-co")
-var env = process.env
+const app   = require("koa")();
+const route = require("koa-route")
+const serve = require("koa-static")
+const views = require("koa-views")
+const mysql = require("mysql-co")
+const env = process.env
 
 app.use(views(__dirname + '/views', {
     map: {
