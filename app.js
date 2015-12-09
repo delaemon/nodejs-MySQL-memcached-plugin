@@ -2,8 +2,11 @@ const app   = require("koa")();
 const route = require("koa-route")
 const serve = require("koa-static")
 const views = require("koa-views")
+const logger = require('koa-logger')
 const mysql = require("mysql-co")
 const env = process.env
+
+app.use(logger())
 
 app.use(views(__dirname + '/views', {
     map: {
