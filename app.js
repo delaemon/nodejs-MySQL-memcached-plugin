@@ -61,4 +61,4 @@ app.use(
 console.log("Starting Server. Pid", process.pid)
 console.log("Listening to Port", env.PORT);
 console.log("Listening to Address", env.BIND);
-app.listen(env.PORT||3000)
+app.listen(env.PORT)
