@@ -4,9 +4,11 @@ const serve = require("koa-static")
 const views = require("koa-views")
 const logger = require('koa-logger')
 const mysql = require("mysql-co")
+const gzip = require('koa-gzip');
 const env = process.env
 
 app.use(logger())
+app.use(gzip())
 
 app.use(views(__dirname + '/views', {
     map: {
