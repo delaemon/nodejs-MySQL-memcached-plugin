@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "co": "4.6.0",
     "ect": "^0.5.9",
     "foreman": "1.4.1",
     "koa": "^1.1.2",
